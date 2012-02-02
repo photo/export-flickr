@@ -7,6 +7,8 @@ import flickrapi
 import json
 # import regex
 import re
+# for date parsing
+import time
 
 def auth(frob, perms):
     print 'Please give us permission %s' % perms
@@ -70,7 +72,7 @@ def main():
     # call the photos.search API
     # http://www.flickr.com/services/api/flickr.photos.search.html
     print "Fetching page %d..." % page,
-    photos_resp = flickr.people_getPhotos(user_id=user_id, per_page=per_page, page=page, extras='original_format')
+    photos_resp = flickr.people_getPhotos(user_id=user_id, per_page=per_page, page=page, extras='original_format,tags,geo,url_o,date_upload,date_taken,license,description')
     print "OK"
 
     # increment the page number before we forget so we don't endlessly loop
@@ -86,14 +88,40 @@ def main():
     # else we loop through the photos
     for photo in photo_list:
       # get all the data we can
-      photo_id = photo.get('id')
-      photo_permission = photo.get('ispublic')
-      photo_title = photo.get('title')
-      photo_has_geo = photo.get('has_geo')
+      p = {}
+      p['id'] = photo.get('id')
+      p['permission'] = photo.get('ispublic')
+      p['title'] = photo.get('title')
+      p['license'] = getLicense(photo.get('license'))
+      description = photo.findall('description')[0].text
+      if description is not None:
+        p['description'] = description
 
-      print "  * Storing photo %s to fetched/%s.json..." % (photo_id, photo_id),
-      f = open("fetched/%s.json" % photo_id, 'w')
-      f.write("%r" % {'id':photo_id,'title':photo_title,'url':constructUrl(photo)})
+      if photo.get('latitude') != '0':
+        p['latitude'] = photo.get('latitude')
+
+      if photo.get('longitude') != '0':
+        p['longitude'] = photo.get('longitude')
+
+      if len(photo.get('tags')) > 0:
+        p['tags'] = photo.get('tags').split(',')
+      else:
+        p['tags'] = []
+      if photo.get('place_id') is not None:
+        p['tags'].append("flickr:place_id=%s" % photo.get('place_id'))
+
+      if photo.get('woe_id') is not None:
+        p['tags'].append("geo:woe_id=%s" % photo.get('woe_id'))
+
+      p['tags'] = ",".join(p['tags'])
+      p['dateUploaded'] = photo.get('dateupload')
+      p['dateTaken'] = "%d" % time.mktime(time.strptime(photo.get('datetaken'), '%Y-%m-%d %H:%M:%S'))
+      p['photo'] = photo.get('url_o')
+
+      print "  * Storing photo %s to fetched/%s.json..." % (p['id'], p['id']),
+      f = open("fetched/%s.json" % p['id'], 'w')
+      #f.write("%r" % {'id':photo_id,'title':photo_title,'url':constructUrl(photo)})
+      f.write("%r" % p)
       f.close()
       print "OK"
 
@@ -107,7 +135,21 @@ def createDirectorySafe( name ):
 def constructUrl( photo ):
   return "http://farm%s.staticflickr.com/%s/%s_%s_o.%s" % (photo.get('farm'), photo.get('server'), photo.get('id'), photo.get('originalsecret'), photo.get('originalformat'))
 
+# map Flickr licenses to short names
+def getLicense( num ):
+  licenses = {}
+  licenses['0'] = ''
+  licenses['4'] = 'CC BY'
+  licenses['5'] = 'CC BY-SA'
+  licenses['6'] = 'CC BY-ND'
+  licenses['2'] = 'CC BY-NC'
+  licenses['1'] = 'CC BY-NC-SA'
+  licenses['3'] = 'CC BY-NC-ND'
 
+  if licenses[num] is None:
+    return licenses[0]
+  else:
+    return licenses[num]
 
 # check if a fetched, processed and errored directories exist
 createDirectorySafe('fetched')

@@ -81,3 +81,17 @@ Now the script gets to work downloading the information for your photos. It does
 Now you've got a bunch of text files. These can be fed into our import tool to transfer all of your photos into your OpenPhoto account.
 
 Don't worry, we'll have a nice web based GUI for all of this soon :).
+
+### Known issues
+
+1. Flickr allows multiple licenses but OpenPhoto does not.
+1. Flickr has machine tags, do we implement something similar?
+   * Proposal is to store them even if we don't do anything *special* with them
+1. Flickr has a place_id
+   * Proposal is to store it as a tag `flickr:place_id=xxxxxxx`
+1. Flickr has a woe_id (http://developer.yahoo.com/geo/geoplanet/guide/concepts.html)
+   * Proposal is to store it as a tag `geo:woe_id=xxxxxxx`
+   * Since it's not Flickr specific (maybe Yahoo! specific) store it as a geo attribute
+1. How to deal with contacts and groups?
+   * Proposal is to auto create two groups (friends and family) and add photos to the given group for permissions. The user can then add people to the group since we won't import the actual contacts. This way if a photo is to be shared with family, it still is once they add family members to their group.
+
