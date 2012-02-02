@@ -4,29 +4,80 @@ Open Photo API / Export tool for Flickr
 
 ----------------------------------------
 
-## How to use
+### Overview
 
 This script fetches all of your photos from Flickr and stores them into text files which can then be easily imported to OpenPhoto.
 
+### Setting up an API key
+
 Before you get started you'll need a Flickr API key.
 
-* http://www.flickr.com/services/apps/create/
+1. Go to http://www.flickr.com/services/apps/create/apply/
+1. Apply for a non-commercial key
+1. Provide a name and description (this can be anything)
+1. Take note of your key and secret, you'll need them soon
+1. Click Edit auth flow for this app
+1. Put anything in for the callback URL, http://theopenphotoprojecr.org works
+1. Save changes
 
-You'll need an authentication token to actually run this script (not yet implemented).
+### Downloading the script
 
+#### Using git
+
+    git clone git@github.com:openphoto/export-flickr.git
+
+#### Using wget
+
+    mkdir export-flickr
+    wget -O export-flickr/fetch.py https://raw.github.com/openphoto/export-flickr/master/fetch.py --no-check-certificate
+
+#### Using file->save
+
+Click the link below and save the file into a directory named `export-flickr`.
+
+https://raw.github.com/openphoto/export-flickr/master/fetch.py
+
+### Running the script
+
+Start a terminal and enter the following.
+
+    cd export-flickr
     python fetch.py
 
-The script will ask for your API key, secret, token and the number of photos per request. It should look something like this
+You'll be prompted for your key and secret which you took note of in step 4 above.
 
-      Enter your api key:  ********************************
-      Enter your api secret:  ****************
-      Enter your token:  **********************************
-      How many photos per request? (100 if you aren't sure):  100
-      photo 6109695003 stored to fetched/6109695003.json
-      photo 6109694841 stored to fetched/6109694841.json
-      photo 6109694637 stored to fetched/6109694637.json
-      photo 6110240318 stored to fetched/6110240318.json
-      photo 6110240222 stored to fetched/6110240222.json
-      photo 6065502023 stored to fetched/6065502023.json
+    Enter your api key:  ********************************
+    Enter your api secret:  ****************
 
-## YAY
+Next you'll be given a URL which you need to copy and paste into a browser. If you're not logged into Flickr you'll have to sign in. Once logged in you need to approve the application access to your account.
+
+_NOTE:_ This script ONLY asks for read permissions. If it's asking for write permissions throw your computer in the trash.
+
+    Open the following URL in your browser 
+    This Url >>>> http://api.flickr.com/services/auth/?perms=read&api_sig=********************************&api_key=********************************
+
+After this you'll be redirected to the URL you specified as your callback. Copy and paste the entire URL into the terminal.
+
+    When you're ready press ENTER 
+    Copy and paste the URL (from theopenphotoproject.org) here:  http://theopenphotoproject.org/?frob=*******************************************
+
+    Thanks!
+
+Now the script gets to work downloading the information for your photos. It doesn't download the actual photos so it should be relatively fast.
+
+    Parsing URL for the token... OK
+    Fetching user id... OK
+    Fetching page 1... OK
+      * Storing photo 6109695003 to fetched/6109695003.json... OK
+      * Storing photo 6109694841 to fetched/6109694841.json... OK
+      * Storing photo 6109694637 to fetched/6109694637.json... OK
+      * Storing photo 6110240318 to fetched/6110240318.json... OK
+      * Storing photo 6110240222 to fetched/6110240222.json... OK
+      * Storing photo 6065502023 to fetched/6065502023.json... OK
+    Fetching page 2... OK
+
+### YAY
+
+Now you've got a bunch of text files. These can be fed into our import tool to transfer all of your photos into your OpenPhoto account.
+
+Don't worry, we'll have a nice web based GUI for all of this soon :).
