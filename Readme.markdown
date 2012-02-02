@@ -20,6 +20,12 @@ Before you get started you'll need a Flickr API key.
 1. Put anything in for the callback URL, http://theopenphotoprojecr.org works
 1. Save changes
 
+### Getting dependencies
+
+The only dependency you need the `flickrapi` module.
+
+    sudo pip install flickrapi
+
 ### Downloading the script
 
 #### Using git
