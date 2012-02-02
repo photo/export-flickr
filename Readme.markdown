@@ -19,7 +19,7 @@ Before you get started you'll need a Flickr API key.
 1. Provide a name and description (this can be anything)
 1. Take note of your key and secret, you'll need them soon
 1. Click Edit auth flow for this app
-1. Put anything in for the callback URL, http://theopenphotoprojecr.org works
+1. Put anything in for the callback URL, http://theopenphotoproject.org works
 1. Save changes
 
 <a name="dependencies"></a>
@@ -27,7 +27,9 @@ Before you get started you'll need a Flickr API key.
 
 The only dependency you need the `flickrapi` module.
 
-    sudo pip install flickrapi
+    sudo easy_install install flickrapi
+    # you may also use pip to install it
+    # sudo pip install flickrapi
 
 <a name="download"></a>
 ### Downloading the script
