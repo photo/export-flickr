@@ -27,7 +27,7 @@ Before you get started you'll need a Flickr API key.
 
 The only dependency you need the `flickrapi` module.
 
-    sudo easy_install install flickrapi
+    sudo easy_install flickrapi
     # you may also use pip to install it
     # sudo pip install flickrapi
 
