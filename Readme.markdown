@@ -4,10 +4,12 @@ Open Photo API / Export tool for Flickr
 
 ----------------------------------------
 
+<a name="overview"></a>
 ### Overview
 
 This script fetches all of your photos from Flickr and stores them into text files which can then be easily imported to OpenPhoto.
 
+<a name="setup"></a>
 ### Setting up an API key
 
 Before you get started you'll need a Flickr API key.
@@ -20,12 +22,14 @@ Before you get started you'll need a Flickr API key.
 1. Put anything in for the callback URL, http://theopenphotoprojecr.org works
 1. Save changes
 
+<a name="dependencies"></a>
 ### Getting dependencies
 
 The only dependency you need the `flickrapi` module.
 
     sudo pip install flickrapi
 
+<a name="download"></a>
 ### Downloading the script
 
 #### Using git
@@ -43,6 +47,7 @@ Click the link below and save the file into a directory named `export-flickr`.
 
 https://raw.github.com/openphoto/export-flickr/master/fetch.py
 
+<a name="running"></a>
 ### Running the script
 
 Start a terminal and enter the following.
@@ -88,6 +93,7 @@ Now you've got a bunch of text files. These can be fed into our import tool to t
 
 Don't worry, we'll have a nice web based GUI for all of this soon :).
 
+<a name="knownissues"></a>
 ### Known issues
 
 1. Flickr allows multiple licenses but OpenPhoto does not.
