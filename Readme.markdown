@@ -36,7 +36,7 @@ The only dependency you need the `flickrapi` module.
 
 #### Using git
 
-    git clone git@github.com:openphoto/export-flickr.git
+    git clone git://github.com/openphoto/export-flickr.git
 
 #### Using wget
 
