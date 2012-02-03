@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 # import os for file system functions
 import os
 # import json
@@ -11,13 +13,7 @@ import time
 import flickrapi
 
 # main program
-def main():
-
-  # get api key, secret and token from the user
-  print "Enter your api key: ",
-  api_key = raw_input()
-  print "Enter your api secret: ",
-  api_secret = raw_input()
+def fetch(api_key, api_secret):
 
   # create an unauthenticated flickrapi object
   flickr=flickrapi.FlickrAPI(api_key, api_secret)
@@ -147,6 +143,16 @@ def getLicense( num ):
   else:
     return licenses[num]
 
-# check if a fetched directory exist else create it
-createDirectorySafe('fetched')
-main()
+
+if __name__ == '__main__':
+  import argparse
+
+  parser = argparse.ArgumentParser(description='Backup your Flickr photos')
+  parser.add_argument('--api-key', required=True, help='Flickr API key')
+  parser.add_argument('--api-secret', required=True, help='Flickr API secret')
+
+  config = parser.parse_args()
+
+  # check if a fetched directory exist else create it
+  createDirectorySafe('fetched')
+  fetch(config.api_key, config.api_secret)

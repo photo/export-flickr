@@ -59,12 +59,9 @@ https://raw.github.com/openphoto/export-flickr/master/fetch.py
 Start a terminal and enter the following.
 
     cd export-flickr
-    python fetch.py
+    python fetch.py --api-key=******************************** --api-secret=****************
 
-You'll be prompted for your key and secret which you took note of in step 4 above.
-
-    Enter your api key:  ********************************
-    Enter your api secret:  ****************
+For api-key and api-secret, enter what Flickr returned you in step 4 of above.
 
 Next you'll be given a URL which you need to copy and paste into a browser. If you're not logged into Flickr you'll have to sign in. Once logged in you need to approve the application access to your account.
 
