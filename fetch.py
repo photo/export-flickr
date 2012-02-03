@@ -1,17 +1,14 @@
 # import os for file system functions
 import os
-# import flickrapi
-# pip install flickrapi
-import flickrapi
 # import json
 import json
 # import regex
 import re
 # for date parsing
 import time
-
-def auth(frob, perms):
-    print 'Please give us permission %s' % perms
+# import flickrapi
+# `easy_install flickrapi` or `pip install flickrapi`
+import flickrapi
 
 # main program
 def main():
@@ -104,7 +101,7 @@ def main():
         p['longitude'] = photo.get('longitude')
 
       if len(photo.get('tags')) > 0:
-        p['tags'] = photo.get('tags').split(',')
+        p['tags'] = photo.get('tags').split(' ')
       else:
         p['tags'] = []
       if photo.get('place_id') is not None:
@@ -120,8 +117,7 @@ def main():
 
       print "  * Storing photo %s to fetched/%s.json..." % (p['id'], p['id']),
       f = open("fetched/%s.json" % p['id'], 'w')
-      #f.write("%r" % {'id':photo_id,'title':photo_title,'url':constructUrl(photo)})
-      f.write("%r" % p)
+      f.write(json.dumps(p))
       f.close()
       print "OK"
 
@@ -151,8 +147,6 @@ def getLicense( num ):
   else:
     return licenses[num]
 
-# check if a fetched, processed and errored directories exist
+# check if a fetched directory exist else create it
 createDirectorySafe('fetched')
-createDirectorySafe('processed')
-createDirectorySafe('errored')
 main()
