@@ -31,6 +31,10 @@ The only dependency you need the `flickrapi` module.
     # you may also use pip to install it
     # sudo pip install flickrapi
 
+If you're using Ubuntu or Debian, their package should also work:
+
+    sudo aptitude install python-flickrapi
+
 <a name="download"></a>
 ### Downloading the script
 
