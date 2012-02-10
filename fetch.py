@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import datetime
 # import os for file system functions
 import os
 # import json
@@ -111,8 +112,11 @@ def fetch(api_key, api_secret):
       p['dateTaken'] = "%d" % time.mktime(time.strptime(photo.get('datetaken'), '%Y-%m-%d %H:%M:%S'))
       p['photo'] = photo.get('url_o')
 
-      print "  * Storing photo %s to fetched/%s.json..." % (p['id'], p['id']),
-      f = open("fetched/%s.json" % p['id'], 'w')
+      t = datetime.datetime.fromtimestamp(float(p['dateUploaded']))
+      filename = '%s-%s' % (t.strftime('%Y%m%dT%H%M%S'), p['id'])
+
+      print "  * Storing photo %s to fetched/%s.json" % (p['id'], filename),
+      f = open("fetched/%s.json" % filename, 'w')
       f.write(json.dumps(p))
       f.close()
       print "OK"
