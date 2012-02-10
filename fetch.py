@@ -84,7 +84,7 @@ def fetch(api_key, api_secret):
       # get all the data we can
       p = {}
       p['id'] = photo.get('id')
-      p['permission'] = photo.get('ispublic')
+      p['permission'] = bool(int(photo.get('ispublic')))
       p['title'] = photo.get('title')
       p['license'] = getLicense(photo.get('license'))
       description = photo.findall('description')[0].text
@@ -92,10 +92,10 @@ def fetch(api_key, api_secret):
         p['description'] = description
 
       if photo.get('latitude') != '0':
-        p['latitude'] = photo.get('latitude')
+        p['latitude'] = float(photo.get('latitude'))
 
       if photo.get('longitude') != '0':
-        p['longitude'] = photo.get('longitude')
+        p['longitude'] = float(photo.get('longitude'))
 
       if len(photo.get('tags')) > 0:
         p['tags'] = photo.get('tags').split(' ')
@@ -108,8 +108,8 @@ def fetch(api_key, api_secret):
         p['tags'].append("geo:woe_id=%s" % photo.get('woe_id'))
 
       p['tags'] = ",".join(p['tags'])
-      p['dateUploaded'] = photo.get('dateupload')
-      p['dateTaken'] = "%d" % time.mktime(time.strptime(photo.get('datetaken'), '%Y-%m-%d %H:%M:%S'))
+      p['dateUploaded'] = int(photo.get('dateupload'))
+      p['dateTaken'] = int(time.mktime(time.strptime(photo.get('datetaken'), '%Y-%m-%d %H:%M:%S')))
       p['photo'] = photo.get('url_o')
 
       t = datetime.datetime.fromtimestamp(float(p['dateUploaded']))
