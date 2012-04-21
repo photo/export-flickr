@@ -99,6 +99,7 @@ Don't worry, we'll have a nice web based GUI for all of this soon :).
 <a name="knownissues"></a>
 ### Known issues
 
+1. Fetches URL of original photos, which only works for Flickr pro accounts.
 1. Flickr allows multiple licenses but OpenPhoto does not.
 1. Flickr has machine tags, do we implement something similar?
    * Proposal is to store them even if we don't do anything *special* with them
