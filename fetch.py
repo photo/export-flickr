@@ -110,7 +110,10 @@ def fetch(api_key, api_secret):
       p['tags'] = ",".join(p['tags'])
       p['dateUploaded'] = int(photo.get('dateupload'))
       p['dateTaken'] = int(time.mktime(time.strptime(photo.get('datetaken'), '%Y-%m-%d %H:%M:%S')))
-      p['photo'] = photo.get('url_o')
+
+      # Attention : this is returned only for Pro accounts, it seems
+      if photo.get('url_o') is not None:
+        p['photo'] = photo.get('url_o')
 
       t = datetime.datetime.fromtimestamp(float(p['dateUploaded']))
       filename = '%s-%s' % (t.strftime('%Y%m%dT%H%M%S'), p['id'])
