@@ -66,7 +66,7 @@ def fetch(api_key, api_secret):
     # call the photos.search API
     # http://www.flickr.com/services/api/flickr.photos.search.html
     print "Fetching page %d..." % page,
-    photos_resp = flickr.people_getPhotos(user_id=user_id, per_page=per_page, page=page, extras='original_format,tags,geo,url_o,date_upload,date_taken,license,description')
+    photos_resp = flickr.people_getPhotos(user_id=user_id, per_page=per_page, page=page, extras='original_format,tags,geo,url_o,url_b,url_c,url_z,date_upload,date_taken,license,description')
     print "OK"
 
     # increment the page number before we forget so we don't endlessly loop
@@ -110,7 +110,16 @@ def fetch(api_key, api_secret):
       p['tags'] = ",".join(p['tags'])
       p['dateUploaded'] = int(photo.get('dateupload'))
       p['dateTaken'] = int(time.mktime(time.strptime(photo.get('datetaken'), '%Y-%m-%d %H:%M:%S')))
-      p['photo'] = photo.get('url_o')
+
+      # Attention : this is returned only for Pro accounts, it seems
+      if photo.get('url_o') is not None:
+        p['photo'] = photo.get('url_o')
+      elif photo.get('url_b') is not None:
+        p['photo'] = photo.get('url_b')
+      elif photo.get('url_c') is not None:
+        p['photo'] = photo.get('url_c')
+      elif photo.get('url_z') is not None:
+        p['photo'] = photo.get('url_z')
 
       t = datetime.datetime.fromtimestamp(float(p['dateUploaded']))
       filename = '%s-%s' % (t.strftime('%Y%m%dT%H%M%S'), p['id'])
