@@ -40,18 +40,18 @@ If you're using Ubuntu or Debian, their package should also work:
 
 #### Using git
 
-    git clone git://github.com/openphoto/export-flickr.git
+    git clone git://github.com/photo/export-flickr.git
 
 #### Using wget
 
     mkdir export-flickr
-    wget -O export-flickr/fetch.py https://raw.github.com/openphoto/export-flickr/master/fetch.py --no-check-certificate
+    wget -O export-flickr/fetch.py https://raw.github.com/photo/export-flickr/master/fetch.py --no-check-certificate
 
 #### Using file->save
 
 Click the link below and save the file into a directory named `export-flickr`.
 
-https://raw.github.com/openphoto/export-flickr/master/fetch.py
+https://raw.github.com/photo/export-flickr/master/fetch.py
 
 <a name="running"></a>
 ### Running the script
@@ -92,7 +92,7 @@ Now the script gets to work downloading the information for your photos. It does
 
 ### YAY
 
-Now you've got a bunch of text files. These can be fed into our [import tool](http://github.com/openphoto/import) to transfer all of your photos into your OpenPhoto account.
+Now you've got a bunch of text files. These can be fed into our [import tool](http://github.com/photo/import) to transfer all of your photos into your OpenPhoto account.
 
 Don't worry, we'll have a nice web based GUI for all of this soon :).
 
