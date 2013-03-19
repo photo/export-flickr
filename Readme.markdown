@@ -25,15 +25,15 @@ Before you get started you'll need a Flickr API key.
 <a name="dependencies"></a>
 ### Getting dependencies
 
-The only dependency you need the `flickrapi` module.
+The only dependencies you need the `flickrapi` and `argparse` modules.
 
-    sudo easy_install flickrapi
-    # you may also use pip to install it
-    # sudo pip install flickrapi
+    sudo easy_install flickrapi argparse
+    # you may also use pip to install them
+    # sudo pip install flickrapi argparse
 
-If you're using Ubuntu or Debian, their package should also work:
+If you're using Ubuntu or Debian, installing using their packages should also work:
 
-    sudo aptitude install python-flickrapi
+    sudo aptitude install python-flickrapi python-argparse
 
 <a name="download"></a>
 ### Downloading the script
